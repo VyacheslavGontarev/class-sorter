@@ -6,6 +6,7 @@ import main.java.fillers.ManualFiller;
 import main.java.fillers.RandomFiller;
 import main.java.model.Autobus;
 import main.java.model.AutobusComparator;
+import main.java.sorters.BaseSorter;
 import main.java.sorters.Sorter;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class ClassSorter {
         Scanner scanner = new Scanner(System.in);
         int size;
         FillerStrategy filler = new FillerStrategy();
-        Sorter sorter = new Sorter();
+        Sorter sorter = new BaseSorter();
         AutobusComparator comparator = new AutobusComparator();
 
         System.out.println("Введите размер массива: ");

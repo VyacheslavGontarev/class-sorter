@@ -13,6 +13,6 @@ public class AutobusComparator implements Comparator<Autobus> {
         if (modelComp != 0) {
             return modelComp;
         }
-        return Integer.compare(b1.mileage, b2.mileage); // иначе сравниваем пробег
+        return Integer.compare(b1.mileage, b2.mileage);
     }
 }
