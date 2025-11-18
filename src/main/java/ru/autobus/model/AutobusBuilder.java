@@ -1,4 +1,4 @@
-package main.java.model;
+package ru.autobus.model;
 
 public class AutobusBuilder {
     private Autobus newAutobus;

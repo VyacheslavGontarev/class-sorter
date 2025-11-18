@@ -1,6 +1,6 @@
-package main.java.fillers;
+package ru.autobus.fillers;
 
-import main.java.model.Autobus;
+import ru.autobus.model.Autobus;
 
 import java.util.List;
 

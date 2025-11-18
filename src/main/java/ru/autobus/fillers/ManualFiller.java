@@ -1,8 +1,8 @@
-package main.java.fillers;
+package ru.autobus.fillers;
 
-import main.java.model.Autobus;
-import main.java.model.AutobusBuilder;
-import main.java.validator.Validator;
+import ru.autobus.model.Autobus;
+import ru.autobus.model.AutobusBuilder;
+import ru.autobus.validator.Validator;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package main.java.validator;
+package ru.autobus.validator;
 
 public class Validator {
     public boolean validateNumber(String numberStr) {

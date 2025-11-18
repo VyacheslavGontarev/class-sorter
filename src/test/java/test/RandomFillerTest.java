@@ -1,8 +1,8 @@
-package test.java;
+package test;
 
-import main.java.fillers.RandomFiller;
-import main.java.model.Autobus;
-import main.java.model.AutobusComparator;
+import ru.autobus.fillers.RandomFiller;
+import ru.autobus.model.Autobus;
+import ru.autobus.model.AutobusComparator;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;

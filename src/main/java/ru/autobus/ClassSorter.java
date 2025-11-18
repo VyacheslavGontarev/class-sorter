@@ -1,13 +1,13 @@
-package main.java;
+package ru.autobus;
 
-import main.java.fillers.FileFiller;
-import main.java.fillers.FillerStrategy;
-import main.java.fillers.ManualFiller;
-import main.java.fillers.RandomFiller;
-import main.java.model.Autobus;
-import main.java.model.AutobusComparator;
-import main.java.sorters.BaseSorter;
-import main.java.sorters.Sorter;
+import ru.autobus.fillers.FileFiller;
+import ru.autobus.fillers.FillerStrategy;
+import ru.autobus.fillers.ManualFiller;
+import ru.autobus.fillers.RandomFiller;
+import ru.autobus.model.Autobus;
+import ru.autobus.model.AutobusComparator;
+import ru.autobus.sorters.BaseSorter;
+import ru.autobus.sorters.Sorter;
 
 import java.util.ArrayList;
 import java.util.List;

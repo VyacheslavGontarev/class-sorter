@@ -1,6 +1,6 @@
-package main.java.sorters;
+package ru.autobus.sorters;
 
-import main.java.model.Autobus;
+import ru.autobus.model.Autobus;
 
 import java.util.Comparator;
 import java.util.List;

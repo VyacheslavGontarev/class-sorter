@@ -1,10 +1,10 @@
-package test.java;
+package test;
 
 
-import main.java.fillers.ManualFiller;
-import main.java.model.Autobus;
-import main.java.model.AutobusBuilder;
-import main.java.model.AutobusComparator;
+import ru.autobus.fillers.ManualFiller;
+import ru.autobus.model.Autobus;
+import ru.autobus.model.AutobusBuilder;
+import ru.autobus.model.AutobusComparator;
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayInputStream;

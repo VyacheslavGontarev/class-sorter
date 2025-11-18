@@ -1,4 +1,4 @@
-package main.java.model;
+package ru.autobus.model;
 
 import java.util.Objects;
 

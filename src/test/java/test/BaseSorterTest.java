@@ -1,10 +1,10 @@
-package test.java;
+package test;
 
-import main.java.model.Autobus;
-import main.java.model.AutobusBuilder;
-import main.java.model.AutobusComparator;
-import main.java.sorters.BaseSorter;
-import main.java.sorters.Sorter;
+import ru.autobus.model.Autobus;
+import ru.autobus.model.AutobusBuilder;
+import ru.autobus.model.AutobusComparator;
+import ru.autobus.sorters.BaseSorter;
+import ru.autobus.sorters.Sorter;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
