@@ -8,6 +8,8 @@ import ru.autobus.model.Autobus;
 import ru.autobus.model.AutobusComparator;
 import ru.autobus.sorters.BaseSorter;
 import ru.autobus.sorters.Sorter;
+import ru.autobus.sorters.special.EvenNumberSorter;
+import ru.autobus.sorters.special.EvenMileageSorter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,8 @@ public class ClassSorter {
         int size;
         FillerStrategy filler = new FillerStrategy();
         Sorter sorter = new BaseSorter();
+        Sorter evenNumberSorter = new EvenNumberSorter();
+        Sorter evenMileageSorter = new EvenMileageSorter();
         AutobusComparator comparator = new AutobusComparator();
 
         System.out.println("Введите размер массива: ");
@@ -32,7 +36,9 @@ public class ClassSorter {
             System.out.println("1. Создать список автобусов из файла");
             System.out.println("2. Создать список автобусов рандомно");
             System.out.println("3. Создать список автобусов вручную");
-            System.out.println("4. Выход");
+            System.out.println("4. Сортировать по четным номерам");
+            System.out.println("5. Сортировать по четному пробегу");
+            System.out.println("6. Выход");
 
             String option = scanner.nextLine();
 
@@ -56,6 +62,24 @@ public class ClassSorter {
                     System.out.println(autobuses);
                     break;
                 case "4":
+                    if (autobuses.isEmpty()) {
+                        System.out.println("Сначала создайте список автобусов!");
+                    } else {
+                        evenNumberSorter.sort(autobuses, comparator);
+                        System.out.println("Список отсортирован по четным номерам (нечетные остаются на месте): ");
+                        System.out.println(autobuses);
+                    }
+                    break;
+                case "5":
+                    if (autobuses.isEmpty()) {
+                        System.out.println("Сначала создайте список автобусов!");
+                    } else {
+                        evenMileageSorter.sort(autobuses, comparator);
+                        System.out.println("Список отсортирован по четному пробегу (нечетный пробег остается на месте): ");
+                        System.out.println(autobuses);
+                    }
+                    break;
+                case "6":
                     System.out.println("Выход из программы...");
                     return;
                 default:

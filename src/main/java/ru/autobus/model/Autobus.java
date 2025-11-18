@@ -9,6 +9,14 @@ public class Autobus {
 
     protected Autobus() {    }
 
+    public Integer getNumber() {
+        return number;
+    }
+
+    public Integer getMileage() {
+        return mileage;
+    }
+
     @java.lang.Override
     public java.lang.String toString() {
         return "Autobus{" +
