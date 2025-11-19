@@ -3,16 +3,27 @@ package ru.autobus.model;
 import java.util.Comparator;
 
 public class AutobusComparator implements Comparator<Autobus> {
+    public enum SortField {
+        NUMBER, MODEL, MILEAGE
+    }
+    
+    private SortField sortField;
+    
+    public AutobusComparator(SortField sortField) {
+        this.sortField = sortField;
+    }
+    
     @Override
     public int compare(Autobus b1, Autobus b2) {
-        int numberComp = b1.number.compareTo(b2.number);
-        if (numberComp != 0) {
-            return numberComp;
+        switch (sortField) {
+            case NUMBER:
+                return b1.number.compareTo(b2.number);
+            case MODEL:
+                return b1.model.compareTo(b2.model);
+            case MILEAGE:
+                return Integer.compare(b1.mileage, b2.mileage);
+            default:
+                throw new IllegalArgumentException("Unknown sort field: " + sortField);
         }
-        int modelComp = b1.model.compareTo(b2.model);
-        if (modelComp != 0) {
-            return modelComp;
-        }
-        return Integer.compare(b1.mileage, b2.mileage);
     }
 }
