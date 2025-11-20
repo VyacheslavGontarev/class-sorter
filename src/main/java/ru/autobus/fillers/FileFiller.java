@@ -2,13 +2,13 @@ package ru.autobus.fillers;
 
 import ru.autobus.model.Autobus;
 import ru.autobus.model.AutobusBuilder;
+import ru.autobus.model.MyArrayList;
 import ru.autobus.validator.Validator;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class FileFiller implements Filler {
     String path;
@@ -19,41 +19,35 @@ public class FileFiller implements Filler {
     }
 
     @Override
-    public List<Autobus> fill(int size) {
-        List<Autobus> buses = new ArrayList<>();
+    public MyArrayList<Autobus> fill(int size) {
+        MyArrayList<Autobus> buses = new MyArrayList<>();
         try {
-            List<String> lines = Files.readAllLines(Paths.get(path));
-            for (String line : lines) {
-                if (buses.size() >= size) {
-                    break;
-                }
-                String[] parts = line.split(",");
-                if (parts.length != 3) {
-                    System.out.println("Неверный формат строки: " + line);
-                    continue;
-                }
-                String numberStr = parts[0].trim();
-                String model = parts[1].trim();
-                String mileageStr = parts[2].trim();
+            Files.lines(Paths.get(path))
+                    .limit(size)
+                    .map(line -> line.split(","))
+                    .filter(parts -> parts.length == 3)
+                    .map(parts -> new String[]{parts[0].trim(), parts[1].trim(), parts[2].trim()})
+                    .filter(parts -> validator.validateNumber(parts[0]) &&
+                            validator.validateModel(parts[1]) &&
+                            validator.validateMileage(parts[2]))
+                    .map(parts -> {
+                        try {
+                            return new AutobusBuilder()
+                                    .withNumber(Integer.parseInt(parts[0]))
+                                    .withModel(parts[1])
+                                    .withMileage(Integer.parseInt(parts[2]))
+                                    .build();
+                        } catch (NumberFormatException e) {
+                            return null;
+                        }
+                    })
+                    .filter(Objects::nonNull)
+                    .forEach(buses::add);
 
-                if (!validator.validateNumber(numberStr) || !validator.validateModel(model)
-                        || !validator.validateMileage(mileageStr)) {
-                    System.out.println("Ошибка валидации данных: " + line);
-                    continue;
-                }
-
-                int number = Integer.parseInt(numberStr);
-                int mileage = Integer.parseInt(mileageStr);
-                Autobus autobus = new AutobusBuilder()
-                        .withNumber(number)
-                        .withModel(model)
-                        .withMileage(mileage)
-                        .build();
-                buses.add(autobus);
-            }
+            return buses;
         } catch (IOException e) {
             System.out.println("Ошибка чтения файла: " + e.getMessage());
+            return new MyArrayList<>();
         }
-        return buses;
     }
 }

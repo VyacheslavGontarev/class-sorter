@@ -2,30 +2,26 @@ package ru.autobus.fillers;
 
 import ru.autobus.model.Autobus;
 import ru.autobus.model.AutobusBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
+import ru.autobus.model.MyArrayList;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RandomFiller implements Filler {
-    public List<Autobus> fill(int size) {
-        List<Autobus> buses = new ArrayList<>();
-        int number;
-        String model;
-        int mileage;
+    public MyArrayList<Autobus> fill(int size) {
         String[] models = {"Volvo", "Mercedes", "MAN", "Scania"};
+        Random random = new Random();
+        MyArrayList<Autobus> buses = new MyArrayList<>();
+        Stream.generate(() ->
+                        new AutobusBuilder()
+                                .withNumber(random.nextInt(1000))
+                                .withModel(models[random.nextInt(models.length)])
+                                .withMileage(random.nextInt(500000))
+                                .build()
+                )
+                .limit(size)
+                .forEach(buses::add);
 
-        for (int i = 0; i < size; i++) {
-            number = new Random().nextInt(1000);
-            model = models[new Random().nextInt(models.length)];
-            mileage = new Random().nextInt(500000);
-            Autobus autobus = new AutobusBuilder()
-                    .withNumber(number)
-                    .withModel(model)
-                    .withMileage(mileage)
-                    .build();
-            buses.add(autobus);
-        }
         return buses;
     }
 }

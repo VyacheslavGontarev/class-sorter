@@ -6,16 +6,14 @@ import ru.autobus.fillers.ManualFiller;
 import ru.autobus.fillers.RandomFiller;
 import ru.autobus.model.Autobus;
 import ru.autobus.model.AutobusComparator;
+import ru.autobus.model.MyArrayList;
 import ru.autobus.sorters.BaseSorter;
 import ru.autobus.sorters.Sorter;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class ClassSorter {
     public static void main(String[] args) {
-        List<Autobus> autobuses = new ArrayList<>();
+        MyArrayList<Autobus> autobuses = new MyArrayList<>();
         String path = "autobuses.txt";
         Scanner scanner = new Scanner(System.in);
         int size;
@@ -43,19 +41,16 @@ public class ClassSorter {
                 case "1":
                     filler.setFiller(new FileFiller(path));
                     autobuses = filler.executeFiller(size);
-                    sorter.sort(autobuses, comparator);
                     System.out.println(autobuses);
                     break;
                 case "2":
                     filler.setFiller(new RandomFiller());
                     autobuses = filler.executeFiller(size);
-                    sorter.sort(autobuses, comparator);
                     System.out.println(autobuses);
                     break;
                 case "3":
                     filler.setFiller(new ManualFiller(scanner));
                     autobuses = filler.executeFiller(size);
-                    sorter.sort(autobuses, comparator);
                     System.out.println(autobuses);
                     break;
                 case "4":
