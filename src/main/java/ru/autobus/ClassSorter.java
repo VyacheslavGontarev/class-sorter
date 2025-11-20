@@ -90,11 +90,12 @@ public class ClassSorter {
                         break;
                     }
 
-                    System.out.println("Многопоточный поиск одинаковых автобусов");
+                    System.out.println("Введите данные автобуса, который нужно найти с помощью многопоточного поиска:");
 
                     Autobus target = InputUtils.readFromConsole(scanner);
                     long count = CountDuplicates.count(autobuses, target);
 
+                    System.out.println("Искомый автобус: " + target);
                     System.out.println("Найдено одинаковых автобусов: " + count);
                     break;
                 case "8":
