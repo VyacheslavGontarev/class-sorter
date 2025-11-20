@@ -9,6 +9,9 @@ import ru.autobus.model.AutobusComparator;
 import ru.autobus.model.MyArrayList;
 import ru.autobus.sorters.BaseSorter;
 import ru.autobus.sorters.Sorter;
+import ru.autobus.threads.InputUtils;
+import ru.autobus.threads.CountDuplicates;
+
 import java.util.Scanner;
 
 public class ClassSorter {
@@ -33,7 +36,8 @@ public class ClassSorter {
             System.out.println("4. Сортировать по номеру");
             System.out.println("5. Сортировать по модели");
             System.out.println("6. Сортировать по пробегу");
-            System.out.println("7. Выход");
+            System.out.println("7. Поиск одинаковых автобусов");
+            System.out.println("8. Выход");
 
             String option = scanner.nextLine();
 
@@ -81,12 +85,24 @@ public class ClassSorter {
                     System.out.println("Список отсортирован по пробегу: " + autobuses);
                     break;
                 case "7":
+                    if (autobuses.isEmpty()) {
+                        System.out.println("Сначала нужно сформировать список автобусов!");
+                        break;
+                    }
+
+                    System.out.println("Многопоточный поиск одинаковых автобусов");
+
+                    Autobus target = InputUtils.readFromConsole(scanner);
+                    long count = CountDuplicates.count(autobuses, target);
+
+                    System.out.println("Найдено одинаковых автобусов: " + count);
+                    break;
+                case "8":
                     System.out.println("Выход из программы...");
                     return;
                 default:
                     System.out.println("Такой команды пока нет(");
             }
-
         }
     }
 }
