@@ -1,10 +1,10 @@
 package ru.autobus.sorters;
 
 import ru.autobus.model.Autobus;
+import ru.autobus.model.MyArrayList;
 
 import java.util.Comparator;
-import java.util.List;
 
 public interface Sorter {
-    public void sort(List<Autobus> buses, Comparator<Autobus> comparator);
+    void sort(MyArrayList<Autobus> buses, Comparator<Autobus> comparator);
 }

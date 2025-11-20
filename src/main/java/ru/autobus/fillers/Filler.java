@@ -1,9 +1,8 @@
 package ru.autobus.fillers;
 
 import ru.autobus.model.Autobus;
-
-import java.util.List;
+import ru.autobus.model.MyArrayList;
 
 public interface Filler {
-    List<Autobus> fill(int size);
+    MyArrayList<Autobus> fill(int size);
 }

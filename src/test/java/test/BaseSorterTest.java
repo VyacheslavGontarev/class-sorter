@@ -3,13 +3,12 @@ package test;
 import ru.autobus.model.Autobus;
 import ru.autobus.model.AutobusBuilder;
 import ru.autobus.model.AutobusComparator;
+import ru.autobus.model.MyArrayList;
 import ru.autobus.sorters.BaseSorter;
 import ru.autobus.sorters.Sorter;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class BaseSorterTest {
 
     Sorter sorter = new BaseSorter();
-    Comparator comparator = new AutobusComparator();
+    Comparator comparator = new AutobusComparator(AutobusComparator.SortField.NUMBER);
 
     @Test
     void testSort_correctOrder() {
@@ -26,7 +25,7 @@ public class BaseSorterTest {
         Autobus bus2 = new AutobusBuilder().withNumber(1).withModel("A").withMileage(2000).build();
         Autobus bus3 = new AutobusBuilder().withNumber(3).withModel("A").withMileage(1000).build();
 
-        List<Autobus> buses = new ArrayList<>();
+        MyArrayList<Autobus> buses = new MyArrayList<>();
         buses.add(bus1);
         buses.add(bus2);
         buses.add(bus3);
@@ -40,7 +39,7 @@ public class BaseSorterTest {
 
     @Test
     void testSort_emptyList() {
-        List<Autobus> buses = new ArrayList<>();
+        MyArrayList<Autobus> buses = new MyArrayList<>();
         sorter.sort(buses, comparator);
         assertTrue(buses.isEmpty());
     }
@@ -48,7 +47,7 @@ public class BaseSorterTest {
     @Test
     void testSort_singleElement() {
         Autobus bus = new AutobusBuilder().withNumber(1).withModel("Model").withMileage(100).build();
-        List<Autobus> buses = new ArrayList<>();
+        MyArrayList<Autobus> buses = new MyArrayList<>();
         buses.add(bus);
 
         sorter.sort(buses, comparator);

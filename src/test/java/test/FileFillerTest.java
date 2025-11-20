@@ -7,6 +7,8 @@ import ru.autobus.model.Autobus;
 import ru.autobus.model.AutobusBuilder;
 import ru.autobus.model.AutobusComparator;
 import org.junit.jupiter.api.*;
+import ru.autobus.model.MyArrayList;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FileFillerTest {
 Path tempFile;
-Comparator comparator = new AutobusComparator();
+Comparator comparator = new AutobusComparator(AutobusComparator.SortField.MODEL);
 
 @BeforeEach
     void setUp() {
@@ -46,7 +48,7 @@ Comparator comparator = new AutobusComparator();
     @Test
     void testFill_ValidLines() {
         FileFiller filler = new FileFiller(tempFile.toString());
-        List<Autobus> result = filler.fill(4);
+        MyArrayList<Autobus> result = filler.fill(4);
         assertEquals(2, result.size());
         Autobus expected = new AutobusBuilder().withNumber(1).withModel("Volvo").withMileage(10000).build();
         Autobus actual = result.get(0);
@@ -56,10 +58,10 @@ Comparator comparator = new AutobusComparator();
     @Test
     void testFillerStrategy() {
         FileFiller filler = new FileFiller(tempFile.toString());
-        List<Autobus> directArray = filler.fill(4);
+        MyArrayList<Autobus> directArray = filler.fill(4);
         FillerStrategy strategy = new FillerStrategy();
         strategy.setFiller(filler);
-        List<Autobus> strategyArray = strategy.executeFiller(4);
+        MyArrayList<Autobus> strategyArray = strategy.executeFiller(4);
         assertEquals(directArray.size(), strategyArray.size());
         for (int i = 0; i < directArray.size(); i++) {
             Autobus expected = directArray.get(i);
@@ -71,7 +73,7 @@ Comparator comparator = new AutobusComparator();
     @Test
     void testFill_SizeLimit() {
         FileFiller filler = new FileFiller(tempFile.toString());
-        List<Autobus> result = filler.fill(1);
+        MyArrayList<Autobus> result = filler.fill(1);
         assertEquals(1, result.size());
     }
 }

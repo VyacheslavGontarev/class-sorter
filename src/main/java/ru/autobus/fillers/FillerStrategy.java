@@ -1,8 +1,7 @@
 package ru.autobus.fillers;
 
 import ru.autobus.model.Autobus;
-
-import java.util.List;
+import ru.autobus.model.MyArrayList;
 
 public class FillerStrategy {
     private Filler filler;
@@ -11,7 +10,7 @@ public class FillerStrategy {
         this.filler = filler;
     }
 
-    public List<Autobus> executeFiller(int size) {
+    public MyArrayList<Autobus> executeFiller(int size) {
         return filler.fill(size);
     }
 }
