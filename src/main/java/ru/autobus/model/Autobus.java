@@ -7,7 +7,16 @@ public class Autobus {
     protected String model;
     protected Integer mileage;
 
-    protected Autobus() {    }
+    protected Autobus() {
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public Integer getMileage() {
+        return mileage;
+    }
 
     @java.lang.Override
     public java.lang.String toString() {

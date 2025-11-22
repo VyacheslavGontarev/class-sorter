@@ -8,6 +8,8 @@ import ru.autobus.model.Autobus;
 import ru.autobus.model.AutobusComparator;
 import ru.autobus.model.MyArrayList;
 import ru.autobus.sorters.BaseSorter;
+import ru.autobus.sorters.EvenMileageSorter;
+import ru.autobus.sorters.EvenNumberSorter;
 import ru.autobus.sorters.Sorter;
 import ru.autobus.threads.InputUtils;
 import ru.autobus.threads.CountDuplicates;
@@ -22,6 +24,8 @@ public class ClassSorter {
         int size;
         FillerStrategy filler = new FillerStrategy();
         Sorter sorter = new BaseSorter();
+        EvenNumberSorter evenNumberSorter = new EvenNumberSorter();
+        EvenMileageSorter evenMileageSorter = new EvenMileageSorter();
         AutobusComparator comparator = new AutobusComparator(AutobusComparator.SortField.NUMBER); // default sorting by number
 
         System.out.println("Введите размер массива: ");
@@ -37,7 +41,9 @@ public class ClassSorter {
             System.out.println("5. Сортировать по модели");
             System.out.println("6. Сортировать по пробегу");
             System.out.println("7. Поиск одинаковых автобусов");
-            System.out.println("8. Выход");
+            System.out.println("8. Сортировать четные номера по порядку, нечетные остаются на месте");
+            System.out.println("9. Сортировать автобусы с четным пробегом, нечетные остаются на месте");
+            System.out.println("10. Выход");
 
             String option = scanner.nextLine();
 
@@ -99,6 +105,24 @@ public class ClassSorter {
                     System.out.println("Найдено одинаковых автобусов: " + count);
                     break;
                 case "8":
+                    if (autobuses.isEmpty()) {
+                        System.out.println("Сначала нужно сформировать список автобусов!");
+                        break;
+                    }
+                    comparator = new AutobusComparator(AutobusComparator.SortField.NUMBER);
+                    evenNumberSorter.sort(autobuses, comparator);
+                    System.out.println("Список отсортирован по четным номерам: " + autobuses);
+                    break;
+                case "9":
+                    if (autobuses.isEmpty()) {
+                        System.out.println("Сначала нужно сформировать список автобусов!");
+                        break;
+                    }
+                    comparator = new AutobusComparator(AutobusComparator.SortField.MILEAGE);
+                    evenMileageSorter.sort(autobuses, comparator);
+                    System.out.println("Список отсортирован по четному пробегу: " + autobuses);
+                    break;
+                case "10":
                     System.out.println("Выход из программы...");
                     return;
                 default:
