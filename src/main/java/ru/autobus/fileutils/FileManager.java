@@ -1,15 +1,26 @@
 package ru.autobus.fileutils;
 
+import ru.autobus.model.Autobus;
+import ru.autobus.model.MyArrayList;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 
 public class FileManager<T> {
+    private String filePath;
+    private MyArrayList<T> data;
 
-    public boolean checkFileExists(String filePath){
+    public FileManager(String filePath){
+        this.filePath = filePath;
+    }
+
+
+    public boolean checkFileExists(){
         File file = new File(filePath);
         if (!file.exists()){
             System.out.println("Файл не существует или путь указан некорректно");
@@ -27,7 +38,7 @@ public class FileManager<T> {
         }
     }
 
-    public void createFile(String filePath){
+    public void createFile(){
         File file = new File(filePath);
         if (file.exists()) {
             if (file.isFile())
@@ -47,56 +58,101 @@ public class FileManager<T> {
         }
     }
 
-    public void clearFile(String filePath){
-        if (checkFileExists(filePath)) {
+    public void clearFile(){
+        if (checkFileExists()) {
             try (FileWriter fileWriter = new FileWriter(filePath)){
                 // открытие в режиме перезаписи очищает файл
                 System.out.println("Файл " + filePath + " очищен");
             } catch (IOException e){
                 System.err.println("Ошибка при очистке файла: " + e.getMessage());
             }
-
         } else {
             System.out.println("Проверка существования файла не пройдена, очистка файла отменена");
         }
     }
 
 
-        public void appendToFile(List<T> data, String filePath){
-        if (checkFileExists(filePath)) {
+    public void appendToFile(MyArrayList<T> data){
+        if (checkFileExists()) {
             try (FileWriter fileWriter = new FileWriter(filePath, true)){ // true - включает режим APPEND
                 if (data != null && data.size() > 0){
-                    for (T element : data){
-                        fileWriter.write("Record begin: \n");
-                        fileWriter.write(element.toString());
-                        fileWriter.write("\n");
-                    }
+                    fileWriter.write("Record begin: \n");
+
+                    data.stream()
+                        .map(Object::toString)
+                        .forEach(str-> {
+                            try {
+                                fileWriter.write(str + "\n");
+                            } catch (IOException e) {
+                                System.err.println("Ошибка при добавлении в файл (внутр): " + e.getMessage());
+                            }
+                        });
                     fileWriter.write("Record end: \n");
                     System.out.println("Информация в файл " + filePath + " записана.");
                 } else {
                     System.out.println("Данные для записи в файл отсутствуют");
                 }
             } catch (IOException e){
-                System.err.println("Ошибка при добавлении в файл: " + e.getMessage());
+                System.err.println("Ошибка при добавлении в файл (внеш): " + e.getMessage());
             }
         } else {
             System.out.println("Проверка существования файла не пройдена, добавление в файл отменено");
         }
-
     }
 
-    public static void main(String[] args) {
-        FileManager fileManager = new FileManager();
-
-        String filePathExist = "C:\\MY\\1_PROGRAMMING\\JAVA\\Java Developer\\Итоговый проект\\temp\\output.txt";
-        String pathExist = "C:\\MY\\1_PROGRAMMING\\JAVA\\Java Developer\\Итоговый проект\\temp\\";
-        String fileNotExist = "C:\\MY\\1_PROGRAMMING\\JAVA\\Java Developer\\Итоговый проект\\temp\\none.txt";
-        String pathNotExist = "C:\\MY\\1_PROGRAMMING\\JAVA\\Java Developer\\Итоговый проект\\temp\\none";
-
-        if (fileManager.checkFileExists(fileNotExist)){
-            fileManager.clearFile(fileNotExist);
-        } else fileManager.createFile(fileNotExist);
+    public void appendToFile(Autobus target, long count){
+        if (checkFileExists()) {
+            try (FileWriter fileWriter = new FileWriter(filePath, true)){ // true - включает режим APPEND
+                if (target != null){
+                    fileWriter.write("Искомый автобус: " + target + "\n");
+                    fileWriter.write("Найдено одинаковых автобусов: " + count + "\n");
+                    fileWriter.write("Record end: \n");
+                    System.out.println("Информация в файл " + filePath + " записана.");
+                } else {
+                    System.out.println("Данные для записи в файл отсутствуют");
+                }
+            } catch (IOException e){
+                System.err.println("Ошибка при добавлении в файл (внеш): " + e.getMessage());
+            }
+        } else {
+            System.out.println("Проверка существования файла не пройдена, добавление в файл отменено");
+        }
     }
 
+    public void runAppendToFileDialog(Scanner scanner, MyArrayList<T> data){
+        System.out.println("Записать результат в файл? (Y/N)");
+        while (true){
+            String choose = scanner.nextLine().trim().toLowerCase();
+            switch (choose){
+                case "y":
+                    appendToFile(data);
+                    break;
+                case "n":
+                    break;
+                default:
+                    System.out.println("Только Y или N");
+                    continue;
+            }
+            break;
 
+        }
+    }
+
+    public void runAppendToFileDialog(Scanner scanner, Autobus target, long count){
+        System.out.println("Записать результат в файл? (Y/N)");
+        while (true){
+            String choose = scanner.nextLine().trim().toLowerCase();
+            switch (choose){
+                case "y":
+                    appendToFile(target, count);
+                    break;
+                case "n":
+                    break;
+                default:
+                    System.out.println("Только Y или N");
+                    continue;
+            }
+            break;
+        }
+    }
 }
