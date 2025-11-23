@@ -13,7 +13,9 @@ public class Autobus {
     public Integer getNumber() {
         return number;
     }
-
+    public String getModel() {
+        return model;
+    }
     public Integer getMileage() {
         return mileage;
     }

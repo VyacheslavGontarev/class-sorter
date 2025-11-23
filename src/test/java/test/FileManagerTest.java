@@ -11,7 +11,6 @@ import ru.autobus.model.MyArrayList;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -147,4 +146,60 @@ public class FileManagerTest {
         assertTrue(content.contains("Найдено одинаковых автобусов: 2"), "Количество автобусов должно быть правильным");
     }
 
+    // Тест 8: Проверка поведения метода createFile, если файл существует, но это каталог
+
+    @Test
+    void testCreateFile_WhenDirectoryExists() throws IOException {
+        File dir = new File("testDir");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        FileManager<String> fm = new FileManager<>("testDir");
+        fm.createFile();
+        assertTrue(dir.exists() && dir.isDirectory());
+        dir.delete();
+    }
+
+    // Тест 9: Проверка поведения метода checkFileExists для каталога
+
+    @Test
+    void testCheckFileExists_WhenPathIsDirectory() throws IOException {
+        File dir = new File("testDir");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        FileManager<String> fm = new FileManager<>("testDir");
+        assertFalse(fm.checkFileExists());
+        dir.delete();
+    }
+
+    // Тест 10: Проверка метода appendToFile при передаче null и пустых данных
+
+    @Test
+    void testAppendToFile_WithNullAndEmptyData() throws IOException {
+        File file = new File(TEST_FILE_PATH);
+        file.createNewFile();
+
+        MyArrayList<String> emptyData = new MyArrayList<>();
+        // appendToFile с null
+        fileManager.appendToFile(null);
+        // appendToFile с пустым списком
+        fileManager.appendToFile(emptyData);
+
+        assertTrue(file.exists());
+    }
+
+    // Тест 11: Проверка диалога runAppendToFileDialog на ввод неверных значений с последующим "y"
+
+    @Test
+    void testRunAppendToFileDialog_InvalidThenYes() throws IOException {
+        File file = new File(TEST_FILE_PATH);
+        file.createNewFile();
+
+        Scanner scanner = new Scanner("abc\nY\n");
+        MyArrayList<String> data = new MyArrayList<>();
+        data.add("Test Data");
+        fileManager.runAppendToFileDialog(scanner, data);
+        assertTrue(file.length() > 0);
+    }
 }

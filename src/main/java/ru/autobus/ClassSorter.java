@@ -14,8 +14,6 @@ import ru.autobus.sorters.EvenNumberSorter;
 import ru.autobus.sorters.Sorter;
 import ru.autobus.threads.InputUtils;
 import ru.autobus.threads.CountDuplicates;
-
-import java.util.DoubleSummaryStatistics;
 import java.util.Scanner;
 
 public class ClassSorter {
@@ -29,7 +27,7 @@ public class ClassSorter {
         Sorter sorter = new BaseSorter();
         EvenNumberSorter evenNumberSorter = new EvenNumberSorter();
         EvenMileageSorter evenMileageSorter = new EvenMileageSorter();
-        AutobusComparator comparator = new AutobusComparator(AutobusComparator.SortField.NUMBER); // default sorting by number
+        AutobusComparator comparator;
 
         FileManager <Autobus> fileManager = new FileManager<>(outputPath);
         if (fileManager.checkFileExists()){

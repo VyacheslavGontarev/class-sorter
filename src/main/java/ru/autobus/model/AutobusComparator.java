@@ -17,11 +17,11 @@ public class AutobusComparator implements Comparator<Autobus> {
     public int compare(Autobus b1, Autobus b2) {
         switch (sortField) {
             case NUMBER:
-                return b1.number.compareTo(b2.number);
+                return b1.getNumber().compareTo(b2.getNumber());
             case MODEL:
-                return b1.model.compareTo(b2.model);
+                return b1.getModel().compareTo(b2.getModel());
             case MILEAGE:
-                return Integer.compare(b1.mileage, b2.mileage);
+                return Integer.compare(b1.getMileage(), b2.getMileage());
             default:
                 throw new IllegalArgumentException("Unknown sort field: " + sortField);
         }

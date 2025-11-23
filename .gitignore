@@ -6,6 +6,7 @@ out/
 .idea/
 .gigaide/
 target/
+output.txt
 
 ### Eclipse ###
 .apt_generated
