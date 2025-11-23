@@ -27,7 +27,6 @@ public class FileManager<T> {
             return false;
         }
         if (file.isFile()){
-            System.out.println("Файл " + filePath + " существует");
             return true;
         } else if (file.isDirectory()) {
             System.out.println("Указан каталог (папка), название файла в пути не указано");
