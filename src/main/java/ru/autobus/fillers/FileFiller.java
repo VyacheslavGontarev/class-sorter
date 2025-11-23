@@ -22,6 +22,11 @@ public class FileFiller implements Filler {
     public MyArrayList<Autobus> fill(int size) {
         MyArrayList<Autobus> buses = new MyArrayList<>();
         try {
+            long availableLines = Files.lines(Paths.get(path)).count();
+            if (availableLines < size) {
+                throw new RuntimeException("В файле недостаточно строк для создания массива, воспользуйтесь " +
+                        "другим методом заполнения");
+            }
             Files.lines(Paths.get(path))
                     .limit(size)
                     .map(line -> line.split(","))
@@ -45,7 +50,11 @@ public class FileFiller implements Filler {
                     .forEach(buses::add);
 
             return buses;
-        } catch (IOException e) {
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+            return new MyArrayList<>();
+        }
+        catch (IOException e) {
             System.out.println("Ошибка чтения файла: " + e.getMessage());
             return new MyArrayList<>();
         }

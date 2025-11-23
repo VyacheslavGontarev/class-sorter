@@ -57,8 +57,10 @@ public class ClassSorter {
                 case "1":
                     filler.setFiller(new FileFiller(path));
                     autobuses = filler.executeFiller(size);
-                    System.out.println(autobuses);
-                    fileManager.runAppendToFileDialog(scanner, autobuses);
+                    if (!autobuses.isEmpty()) {
+                        System.out.println(autobuses);
+                        fileManager.runAppendToFileDialog(scanner, autobuses);
+                    }
                     break;
                 case "2":
                     filler.setFiller(new RandomFiller());
