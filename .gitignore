@@ -3,6 +3,10 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .kotlin
+.idea/
+.gigaide/
+target/
+output.txt
 
 ### Eclipse ###
 .apt_generated
