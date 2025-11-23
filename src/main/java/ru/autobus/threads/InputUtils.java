@@ -2,31 +2,30 @@ package ru.autobus.threads;
 
 import ru.autobus.model.Autobus;
 import ru.autobus.model.AutobusBuilder;
+import ru.autobus.validator.Validator;
 
 import java.util.Scanner;
 
 public class InputUtils {
 
+    private static final Validator validator = new Validator();
+
     public static int readPositiveInt(Scanner scanner) {
         while (true) {
-            try {
-                String s = scanner.nextLine().trim();
-                int n = Integer.parseInt(s);
-                if (n >= 0) return n;
-
-                System.out.print("Число не должно быть отрицательным. Повторите ввод: ");
-
-            } catch (NumberFormatException e) {
-                System.out.print("Введите корректное число: ");
+            String input = scanner.nextLine().trim();
+            if (validator.validateNumber(input)) {
+                return Integer.parseInt(input);
             }
+            System.out.print("Число не должно быть отрицательным. Повторите ввод: ");
         }
     }
 
     public static String readNonEmptyString(Scanner scanner) {
         while (true) {
-            String s = scanner.nextLine().trim();
-            if (!s.isEmpty()) return s;
-
+            String input = scanner.nextLine().trim();
+            if (validator.validateModel(input)) {
+                return input;
+            }
             System.out.print("Строка не может быть пустой. Повторите ввод: ");
         }
     }
